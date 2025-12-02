@@ -21,7 +21,18 @@ def part1(lines):
     return str(acc)
 
 def part2(line):
-    return ""
+    acc = 0
+    ranges = line.split(",")
+    for x in ranges:
+        range_vals = x.split("-")
+        for x in range(int(range_vals[0]), int(range_vals[1]) + 1):
+            val = str(x) # Get each value in the range
+            for size in range(1, len(val) // 2 + 1):
+                master_slice = val[:size]
+                if ("".join(val.split(master_slice)) == ""):
+                    acc += x
+                    break
+    return str(acc)
 
 if __name__=="__main__":
     main()
