@@ -27,62 +27,37 @@ def part1(lines):
 def part2(lines):
     acc = 0
     range_tuples = []
-    range_singletons = []
     for x in range(0, lines.index("")):
         vals = lines[x].split("-")
         range_tuple = (int(vals[0]), int(vals[1]))
-        if (range_tuple[0] == range_tuple[1]):
-            range_singletons.append(range_tuple)
-        else:
-            range_tuples.append(range_tuple)
+        range_tuples.append(range_tuple)
 
     changes = 0
     old_changes = -1
     while (old_changes != changes):
         old_changes = changes
-        range_tuples.sort(key=lambda range_val: range_val[0])
+        range_tuples = sorted(range_tuples)
         for i in range(0, len(range_tuples) - 1):
             tuple_l = range_tuples[i]
             tuple_r = range_tuples[i + 1]
             
-            r_outside_l = tuple_l[1] < tuple_r[0]
-            equal_heads = tuple_l[0] == tuple_r[0]
-            equal_ends = tuple_l[0] == tuple_r[0]
-            l_contains_r = tuple_l[1] >= tuple_r[1]
-            r_leaves_l = not (r_outside_l and l_contains_r)
-            do_nothing = tuple_l[1] < tuple_r[0]
-
-            if (not do_nothing):
-                if (equal_heads):
-                    if (equal_tails or l_contains_r):
-                        del range_tuples[i + 1]
-                        changes += 1
-                        break
-                    elif (r_leaves_l):
-                        range_tuples[i] = tuple_r
-                        del range_tuples[i + 1]
-                        changes += 1
-                        break
-                else:
-                    range_tuples[i] = (tuple_l[0], max(tuple_l[1], tuple_r[1]))
-                    del range_tuples[i + 1]
-                    changes += 1
-                    break
-            
-
+            if (tuple_r[0] <= tuple_l[1]):
+                range_tuples[i] = (min(tuple_l[0], tuple_r[0]), max(tuple_l[1], tuple_r[1]))
+                del range_tuples[i + 1]
+                changes += 1
+                break
     for (lower, higher) in range_tuples:
-        if (higher < lower):
-            print("f", (lower, higher))
-        for (s1, s2) in range_singletons:
-            if (s1 >= lower and s1 <= higher):
-                acc -= 1
+        print(lower, higher)
         acc += ((higher - lower) + 1)
     # 319856290749062 too low
     # 326897330961684 too low
     # 326897330961757 wrong
+    # 333025403601939 TODO: Test
     # 333060480948284 wrong
+    # 351410652124351 wrong
     # 352716206375531 wrong 
     # 352716206375546 wrong
+    # 352716206375547 TODO: Test
     # 352716206375569 wrong
     # 352716206375570 wrong
     return str(acc)
