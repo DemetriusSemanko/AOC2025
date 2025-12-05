@@ -46,20 +46,10 @@ def part2(lines):
                 del range_tuples[i + 1]
                 changes += 1
                 break
+
     for (lower, higher) in range_tuples:
-        print(lower, higher)
         acc += ((higher - lower) + 1)
-    # 319856290749062 too low
-    # 326897330961684 too low
-    # 326897330961757 wrong
-    # 333025403601939 TODO: Test
-    # 333060480948284 wrong
-    # 351410652124351 wrong
-    # 352716206375531 wrong 
-    # 352716206375546 wrong
-    # 352716206375547 TODO: Test
-    # 352716206375569 wrong
-    # 352716206375570 wrong
+    
     return str(acc)
 
 if __name__=="__main__":
