@@ -1,8 +1,8 @@
 def main():
     lines = []
     with open("input.txt") as f:
-        for x in f:
-            lines.append(x)
+        for line in f:
+            lines.append(line.strip())
     print("Part 1 answer: " + part1(lines.copy()))
     print("Part 2 answer: " + part2(lines.copy()))
 
