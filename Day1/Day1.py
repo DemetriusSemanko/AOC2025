@@ -27,6 +27,22 @@ def part1(lines):
 
 def part2(lines):
     acc = 0
+    pointer = 50
+    for instr in lines:
+        dir = instr[0]
+        amt = int(instr[1:])
+        
+        mult = 1
+        if (dir == "L"):
+            mult = -1
+
+        while (amt != 0):
+            pointer += mult
+            amt -= 1
+            if (pointer == 0 or pointer == 100):
+                acc += 1
+            pointer %= 100
+
     return str(acc)
 
 if __name__=="__main__":
